@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whut.rockjim.competition_website.mapper.NotificationDetailByIdMapper">
+
+    <resultMap id="notificationById" type="whut.rockjim.competition_website.model.dto.NotificationDTO">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="publishName" column="nickname" jdbcType="VARCHAR"/>
+            <result property="classification" column="classification" jdbcType="TINYINT"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="readingNumber" column="reading_number" jdbcType="INTEGER"/>
+            <result property="publishDate" column="publish_date" jdbcType="TIMESTAMP"/>
+            <result property="context" column="context" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getNotificationDetailListById" resultMap="notificationById">
+        select a.id,b.nickname,a.classification,a.title,a.reading_number,a.publish_date,a.context
+        from notification a left join  users b on a.publish_id=b.id where a.publish_id=#{id}
+    </select>
+</mapper>

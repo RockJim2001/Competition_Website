@@ -1,0 +1,45 @@
+#服务器配置
+server:
+  port: 8088
+
+
+#debug: true
+spring:
+  #数据库配置
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/competition_website?serverTimezone=GMT%2B8&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+
+  #devtools热部署配置
+  devtools:
+    restart:
+      enabled: true  #设置开启热部署
+    freemarker:
+      cache: false    #页面不加载缓存，修改即时生效
+  #上传文件大小的配置
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+
+#MyBatis配置
+mybatis-plus:
+  type-enums-package: whut/rockjim/competition_website/constant/enums
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#配置日志
+
+#阿里云OSS配置
+aliyun:
+  oss:
+    accessKeyId: XXXXXXXXXXXXXXXXXXXXXX
+    accessKeySecret: XXXXXXXXXXXXXXXXXXXXXXXXX
+    bucketName: competition-website
+    endpoint: oss-cn-nanjing.aliyuncs.com
+
+
+

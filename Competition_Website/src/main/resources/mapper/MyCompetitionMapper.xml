@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whut.rockjim.competition_website.mapper.MyCompetitionMapper">
+
+    <resultMap id="competitionById" type="whut.rockjim.competition_website.model.dto.MyCompetitionDTO">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="competitionTitle" column="competition_title" jdbcType="VARCHAR"/>
+        <result property="competitionUrl" column="competition_url" jdbcType="VARCHAR"/>
+
+        <result property="registrationFormUrl" column="registration_form_url" jdbcType="VARCHAR"/>
+        <result property="worksTitle" column="works_title" jdbcType="VARCHAR"/>
+        <result property="worksUrl" column="works_url" jdbcType="VARCHAR"/>
+
+        <result property="releaseDate" column="release_date" jdbcType="TIMESTAMP"/>
+        <result property="registrationDate" column="registration_date" jdbcType="TIMESTAMP"/>
+        <result property="submitDate" column="submit_date" jdbcType="TIMESTAMP"/>
+        <result property="reviewDate" column="review_date" jdbcType="TIMESTAMP"/>
+        <result property="resultDate" column="result_date" jdbcType="TIMESTAMP"/>
+
+        <result property="score" column="score" jdbcType="FLOAT"/>
+
+        <result property="scale" column="scale" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="getCompetitionById" resultMap="competitionById">
+        select b.id,b.title as competition_title,b.url as competition_url,b.release_date,b.registration_date,
+               b.submit_date,b.review_date,b.result_date,b.scale,a.apply_form as registration_form_url,
+               c.title as works_title,c.works_url,c.score
+        from registration_form a
+            left join  competition b on a.competition_id=b.id
+            left join  works c on a.user_id=c.user_id
+        where a.user_id=#{id}
+    </select>
+</mapper>

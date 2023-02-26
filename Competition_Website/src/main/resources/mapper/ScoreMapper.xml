@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whut.rockjim.competition_website.mapper.ScoreMapper">
+
+    <resultMap id="Score" type="whut.rockjim.competition_website.model.dto.ScoreDTO">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="competitionName" column="title" jdbcType="VARCHAR"/>
+        <result property="worksUrl" column="works_url" jdbcType="VARCHAR"/>
+        <result property="score" column="score" jdbcType="FLOAT"/>
+        <result property="comment" column="comment" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="date" column="date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="getScoreList" resultMap="Score">
+        select a.id,c.title,b.works_url,a.score,a.comment,a.status,a.date
+        from works_score a left join works b on a.works_id=b.id
+                     left join competition c on b.competition_id=c.id
+    </select>
+    <select id="getScoreListById" parameterType="long" resultType="whut.rockjim.competition_website.model.dto.ScoreDTO">
+        select a.id,c.title as competitionName,b.works_url,a.score,a.comment,a.status,a.date
+        from (select* from works_score where works_score.user_id=#{id}) as a left join works b on a.works_id=b.id
+                           left join competition c on b.competition_id=c.id
+    </select>
+
+</mapper>

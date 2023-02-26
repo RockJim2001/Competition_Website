@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whut.rockjim.competition_website.mapper.RegistrationFormMapper">
+
+    <resultMap id="BaseResultMap" type="whut.rockjim.competition_website.model.entity.RegistrationForm">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="competitionId" column="competition_id" jdbcType="BIGINT"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="applyForm" column="apply_form" jdbcType="VARCHAR"/>
+            <result property="applyDate" column="apply_date" jdbcType="TIMESTAMP"/>
+            <result property="comment" column="comment" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_id,competition_id,
+        status,works_id,apply_form,
+        apply_date,comment
+    </sql>
+    <select id="getListById" resultType="whut.rockjim.competition_website.model.vo.RegistrationListVO">
+        select a.id,d.nickname as 'username',c.title as 'competition',a.status,
+               a.apply_form,a.apply_date,a.comment from registration_form a,
+                     (select * from competition b where b.organizer_id=#{id}) c,users d
+        where a.user_id=d.id and a.competition_id=c.id
+    </select>
+</mapper>

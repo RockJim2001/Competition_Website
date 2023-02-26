@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whut.rockjim.competition_website.mapper.UserInfoMapper">
+
+    <resultMap id="UserInfo" type="whut.rockjim.competition_website.model.dto.UserInfoDTO">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+        <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+        <result property="introduction" column="introduction" jdbcType="VARCHAR"/>
+        <result property="school" column="school" jdbcType="VARCHAR"/>
+        <result property="education" column="education" jdbcType="VARCHAR"/>
+        <result property="permission" column="permission" jdbcType="TINYINT"/>
+        <collection property="authsList" javaType="java.util.ArrayList" ofType="whut.rockjim.competition_website.model.dto.UsersAuthsDTO">
+            <result property="id" column="id" jdbcType="BIGINT"/>
+            <result property="identityType" column="identity_type"  jdbcType="TINYINT"/>
+            <result property="identifier" column="identifier" jdbcType="VARCHAR"/>
+            <result property="credential" column="credential" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+
+    <select id="getUserInfoById" parameterType="long" resultMap="UserInfo">
+        select a.id,a.nickname,a.avatar,a.introduction,a.school,a.education,a.permission,
+               b.id,b.identity_type,b.identifier,b.credential
+        from (select * from users where users.id=#{id}) as a left join users_auths b on
+                a.id=b.user_id
+    </select>
+</mapper>

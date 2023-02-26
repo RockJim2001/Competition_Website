@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whut.rockjim.competition_website.mapper.CompetitionMapper">
+
+    <resultMap id="BaseResultMap" type="whut.rockjim.competition_website.model.entity.Competition">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="organizerId" column="organizer_id" jdbcType="BIGINT"/>
+            <result property="url" column="url" jdbcType="VARCHAR"/>
+            <result property="poster" column="poster" jdbcType="VARCHAR"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="summary" column="summary" jdbcType="VARCHAR"/>
+            <result property="scale" column="status" jdbcType="TINYINT"/>
+            <result property="registrationNumber" column="registration_number" jdbcType="INTEGER"/>
+            <result property="releaseDate" column="release_date" jdbcType="TIMESTAMP"/>
+            <result property="registrationDate" column="registration_date" jdbcType="TIMESTAMP"/>
+            <result property="submitDate" column="submit_date" jdbcType="TIMESTAMP"/>
+            <result property="reviewDate" column="review_date" jdbcType="TIMESTAMP"/>
+            <result property="resultDate" column="result_date" jdbcType="TIMESTAMP"/>
+            <result property="detail" column="detail" jdbcType="VARCHAR"/>
+            <result property="entryGuidelines" column="entry_guidelines" jdbcType="VARCHAR"/>
+            <result property="result" column="result" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,organizer_id,poster,
+        title,summary,status,
+        registration_number,release_date,registration_date,
+        submit_date,review_date,result_date,
+        detail,entry_uidelines,result
+    </sql>
+    <update id="addRegistrationNumber">
+        update competition set registration_number=registration_number+1 where id=#{id}
+    </update>
+</mapper>

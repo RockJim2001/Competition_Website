@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whut.rockjim.competition_website.mapper.WorksMapper">
+
+    <resultMap id="BaseResultMap" type="whut.rockjim.competition_website.model.entity.Works">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="competitionId" column="competition_id" jdbcType="BIGINT"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="introduction" column="introduction" jdbcType="VARCHAR"/>
+            <result property="worksUrl" column="works_url" jdbcType="VARCHAR"/>
+            <result property="score" column="score" jdbcType="FLOAT"/>
+            <result property="submitDate" column="submit_date" jdbcType="TIMESTAMP"/>
+            <result property="allocation" column="allocation" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_id,competition_id,
+        title,introduction,works_url,
+        score,submitDate,allocation,
+    </sql>
+    <update id="summaryScore">
+        update works set score=(select avg(score) from works_score a where a.works_id= works.id) where works.competition_id=#{id}
+    </update>
+</mapper>

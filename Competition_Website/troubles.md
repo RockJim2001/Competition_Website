@@ -1,0 +1,10 @@
+#后端问题集锦
+##问题一：
+   ###描述：前端采用axios发送json对象的post请求，后端从请求体中使用JSONObject区不到对象
+   ###解决办法：JSONObject应该使用阿里云的fastjson，不应该使用springboot中的json
+   >引入依赖：
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>2.0.1</version>
+        </dependency>
