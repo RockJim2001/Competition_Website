@@ -38,8 +38,8 @@ aliyun:
   oss:
     accessKeyId: XXXXXXXXXXXXXXXXXXXXXX
     accessKeySecret: XXXXXXXXXXXXXXXXXXXXXXXXX
-    bucketName: competition-website
-    endpoint: oss-cn-nanjing.aliyuncs.com
+    bucketName: XXXXXXXXXXXXXXXXXXXXXX
+    endpoint: XXXXXXXXXXXXXXXXXXXXXX
 
 
 
